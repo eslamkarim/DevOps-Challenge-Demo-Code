@@ -1,0 +1,16 @@
+pipeline {
+   agent any
+   stages {
+        stage('Init') {
+            steps {
+                sh 'ls'
+                sh 'pwd'
+            }
+        }
+        stage('Run') {
+            steps {
+                sh 'terraform apply -auto-approve'
+            }
+        }
+    }
+}
