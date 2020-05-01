@@ -23,9 +23,7 @@ services:
     env_file:
       - .env
     command:
-      sh -c 'ls && pwd'
-      sh -c 'pip install -r requirments.txt'
-      sh -c 'export $$(cat .env | xargs) && python hello.py'
+      sh  'ls'
 
 volumes:
     app-data:
