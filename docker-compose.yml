@@ -19,6 +19,7 @@ services:
       - 8000
     volumes:
       - app-data:/devops-app
+    working_dir: /devops-app
     env_file:
       - .env
     command:
