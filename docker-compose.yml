@@ -25,10 +25,17 @@ services:
     command:
       sh -c 'ls && pwd'
       sh -c 'pip install -r requirments.txt'
+      sh -c 'export $(cat .env | xargs) && python hello.py'
 
 volumes:
     app-data:
-        external: false
+        driver_opts:
+          type: 'none'
+          o: 'bind'
+          device: '/var/lib/jenkins/workspace/challenge-1'
     redis-data:
-        external: false
+        driver_opts:
+          type: 'none'
+          o: 'bind'
+          device: 'redis-data'
     
