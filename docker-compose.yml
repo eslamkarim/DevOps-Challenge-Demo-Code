@@ -23,8 +23,7 @@ services:
     env_file:
       - .env
     command:
-      sh -c 'ls'
-      sh -c 'pwd'
+      sh -c 'ls && pwd'
       sh -c 'pip install -r requirments.txt'
 
 volumes:
