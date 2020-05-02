@@ -3,11 +3,13 @@ pipeline {
    stages {
         stage('Init') {
             steps {
-                BUILD_FULL = sh (
-                    script: "docker-compose up",
-                    returnStatus: true
-                ) == 0
-                echo "Build full flag: ${BUILD_FULL}"
+                script{
+                    def BUILD_FULL = sh (
+                        script: "docker-compose up",
+                        returnStatus: true
+                    ) == 0
+                    echo "Build full flag: ${BUILD_FULL}"
+                }
             }
         }
     }
