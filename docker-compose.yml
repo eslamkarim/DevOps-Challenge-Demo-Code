@@ -6,36 +6,21 @@ services:
     expose:
      - 6379
     volumes:
-     - redis-data:/var/lib/redis
+     - .:/var/lib/redis
 
     environment:
      - REDIS_REPLICATION_MODE=master
 
  app:
-    links:
-      - redis
     build: ./
     expose:
       - 8000
     volumes:
-      - app-data:/devops-app
+      - .:/devops-app
     working_dir: /devops-app
     env_file:
       - .env
     command:
       sh -c 'ls'
-      sh  'pip install -r requirments.txt'
-      sh  'export $$(cat .env | xargs) && python hello.py'
-
-volumes:
-    app-data:
-        driver_opts:
-          type: 'none'
-          o: 'bind'
-          device: '/var/lib/jenkins/workspace/challenge-1'
-    redis-data:
-        driver_opts:
-          type: 'none'
-          o: 'bind'
-          device: 'redis-data'
-    
+      sh -c 'pip install -r requirments.txt'
+      sh -c 'python tests/test.py'
