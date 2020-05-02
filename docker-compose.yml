@@ -23,7 +23,7 @@ services:
     env_file:
       - .env
     command:
-      sh  'pwd'
+      sh -c 'ls'
       sh  'pip install -r requirments.txt'
       sh  'export $$(cat .env | xargs) && python hello.py'
 
