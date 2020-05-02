@@ -25,7 +25,7 @@ services:
       - ./.env
     environment:
       - REDIS_HOST=redis
-    command: ["tests/test.py"]
+    command: ["${CMD}"]
     networks:
       - redis-net
 networks:

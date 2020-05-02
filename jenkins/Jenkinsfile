@@ -1,14 +1,28 @@
 pipeline {
    agent any
    stages {
-        stage('Init') {
+        stage('app testing stage') {
             steps {
                 script{
-                    def BUILD_FULL = sh (
-                        script: "docker-compose up --build",
-                        returnStatus: true
-                    ) == 0
-                    echo "Build full flag: ${BUILD_FULL}"
+                    withEnv(["CMD=tests/test.py"]) {
+                        def TEST_STATUS = sh (
+                            script: "docker-compose up --build --abort-on-container-exit",
+                            returnStatus: true
+                        ) == 0
+                    }
+                }
+            }
+        }
+        stage('app dev stage') {
+            when{
+                expression { TEST_STATUS }
+            }
+            steps {
+                script{
+                    withEnv(["CMD=hello.py"]) {
+                        sh(
+                            script: "docker-compose up --build --abort-on-container-exit"
+                        )
                 }
             }
         }
