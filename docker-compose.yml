@@ -1,17 +1,21 @@
-version: "3.2"
+version: "3"
 services:
  redis:
     image: "redis:alpine"
-    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    command: ["redis-server", "--appendonly", "yes"]
     expose:
      - 6379
+    hostname: redis
+    networks:
+      - redis-net
     volumes:
      - .:/var/lib/redis
-
     environment:
      - REDIS_REPLICATION_MODE=master
 
  app:
+    links:
+      - redis
     build: ./
     expose:
       - 8000
@@ -19,8 +23,11 @@ services:
       - .:/devops-app
     working_dir: /devops-app
     env_file:
-      - .env
-    command:
-      sh -c 'ls'
-      sh -c 'pip install -r requirments.txt'
-      sh -c 'python tests/test.py'
+      - ./.env
+    environment:
+      - REDIS_HOST=redis
+    networks:
+      - redis-net
+      
+networks:
+  redis-net:

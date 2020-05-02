@@ -1,6 +1,7 @@
-FROM python:3.8
+FROM python:3.7
 RUN apt update -y
 RUN apt upgrade -y
 WORKDIR /devops-app
-RUN ls
-RUN python hello.py
+ADD ./* /devops-app/
+RUN pip install -r 'requirements.txt'
+ENTRYPOINT [ "python" ]
