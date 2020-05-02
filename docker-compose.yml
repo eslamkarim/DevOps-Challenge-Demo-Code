@@ -17,17 +17,16 @@ services:
     links:
       - redis
     build: ./
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     volumes:
       - .:/devops-app
-    working_dir: /devops-app
     env_file:
       - ./.env
     environment:
       - REDIS_HOST=redis
+    command: ["tests/test.py"]
     networks:
       - redis-net
-      
 networks:
   redis-net:

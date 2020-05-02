@@ -3,9 +3,11 @@ pipeline {
    stages {
         stage('Init') {
             steps {
-                sh 'ls'
-                sh 'pwd'
-                sh 'docker-compose up'
+                BUILD_FULL = sh (
+                    script: "docker-compose up",
+                    returnStatus: true
+                ) == 0
+                echo "Build full flag: ${BUILD_FULL}"
             }
         }
     }
