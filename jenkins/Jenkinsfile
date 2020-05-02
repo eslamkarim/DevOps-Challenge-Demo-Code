@@ -1,3 +1,5 @@
+def TEST_STATUS = false
+
 pipeline {
    agent any
    stages {
@@ -5,7 +7,7 @@ pipeline {
             steps {
                 script{
                     withEnv(["CMD=tests/test.py"]) {
-                        def TEST_STATUS = sh (
+                        TEST_STATUS = sh (
                             script: "docker-compose up --build --abort-on-container-exit",
                             returnStatus: true
                         ) == 0
