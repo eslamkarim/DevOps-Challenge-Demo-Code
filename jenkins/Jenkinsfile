@@ -23,7 +23,7 @@ pipeline {
                 script{
                     withEnv(["CMD=hello.py"]) {
                         sh(
-                            script: "docker-compose up --build --abort-on-container-exit"
+                            script: "docker-compose up -d --build --abort-on-container-exit"
                         )
                     }
                 }
