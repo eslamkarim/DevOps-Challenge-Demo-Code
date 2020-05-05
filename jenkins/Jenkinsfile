@@ -6,7 +6,7 @@ pipeline {
         stage('app testing stage') {
             steps {
                 script{
-                    withEnv(["CMD=tests/test.py"]) {
+                    withEnv(["CMD=tests/test.py", "PORT=9000"]) {
                         TEST_STATUS = sh (
                             script: "docker-compose -p test up --build --abort-on-container-exit",
                             returnStatus: true
