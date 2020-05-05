@@ -26,6 +26,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - ENVIRONMENT=PROD
+      - PORT=${PORT}
     command: ["${CMD}"]
     networks:
       - redis-net
