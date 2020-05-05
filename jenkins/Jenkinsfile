@@ -8,7 +8,7 @@ pipeline {
                 script{
                     withEnv(["CMD=tests/test.py"]) {
                         TEST_STATUS = sh (
-                            script: "docker-compose up --build --abort-on-container-exit",
+                            script: "docker-compose -p test  up --build --abort-on-container-exit",
                             returnStatus: true
                         ) == 0
                     }
